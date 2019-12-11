@@ -1,11 +1,9 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-import zipfile
 import tensorflow as tf
 import math
 import itertools
-from sklearn.metrics import classification_report, confusion_matrix
 from load_data import *
 
 tf.keras.backend.set_session = tf.compat.v1.Session()
@@ -52,7 +50,6 @@ loss = history.history['loss']
 val_loss = history.history['val_loss']
 
 epochs_range = range(50)
-
 
 plt.figure(figsize=(20, 8))
 plt.subplot(1, 2, 1)

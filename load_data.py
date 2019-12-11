@@ -1,7 +1,6 @@
-from keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array
-import os
+from keras.preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
-import numpy as np
+import os
 
 def loadData(dimension):
     datagen = ImageDataGenerator(
@@ -22,7 +21,7 @@ def loadData(dimension):
     train_generator = datagen.flow_from_directory(
                                                 directory=train_dir, 
                                                 target_size=(dimension,dimension),
-                                                batch_size=100, 
+                                                batch_size=32, 
                                                 shuffle=True,
                                                 seed=42, 
                                                 class_mode='categorical')
@@ -30,7 +29,7 @@ def loadData(dimension):
     valid_generator = datagen.flow_from_directory(
                                                 directory=valid_dir, 
                                                 target_size=(dimension,dimension),
-                                                batch_size=50, 
+                                                batch_size=16, 
                                                 shuffle=False, 
                                                 class_mode='categorical')
     return train_generator, valid_generator                                      
