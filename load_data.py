@@ -30,7 +30,7 @@ def loadData(dimension):
     valid_generator = datagen.flow_from_directory(
                                                 directory=valid_dir, 
                                                 target_size=(dimension,dimension),
-                                                batch_size=100, 
+                                                batch_size=50, 
                                                 shuffle=False, 
                                                 class_mode='categorical')
     return train_generator, valid_generator                                      
