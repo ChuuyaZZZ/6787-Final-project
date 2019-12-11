@@ -1,9 +1,13 @@
-import os
+from tensorflow.keras.applications import VGG16
+from tensorflow.keras.applications import imagenet_utils
+from tensorflow.keras.preprocessing.image import img_to_array
+from tensorflow.keras.preprocessing.image import load_img
+from tensorflow.keras.models import Model
+import argparse
 import numpy as np
-import matplotlib.pyplot as plt
+import cv2
 import tensorflow as tf
-import math
-import itertools
+import matplotlib.pyplot as plt
 from load_data import *
 
 tf.keras.backend.set_session = tf.compat.v1.Session()
@@ -12,7 +16,8 @@ batch_size = 100
 epochs = 100
 IMG_SHAPE = 224 
 
-pre_model = tf.keras.applications.mobilenet_v2.MobileNetV2(input_shape = (224,224,3), alpha = 1.0, include_top = False, weights = 'imagenet')
+
+pre_model = VGG16(include_top=False, weights='imagenet', input_tensor=None, input_shape = (224,224,3), pooling=None)
 
 # Setting the layers of pre-trained model to be non trainable for transfer learning
 for layer in pre_model.layers:
@@ -24,17 +29,19 @@ for layer in pre_model.layers:
 for layer in pre_model.layers:
     layer.trainable = True
 '''
-train_data_gen, val_data_gen = loadData(IMG_SHAPE)
+x = tf.keras.layers.Flatten()(pre_model.output)
+x = tf.keras.layers.Dense(64, activation='relu')(x)
+x = tf.keras.layers.Dropout(0.4)(x)
+# if want to test without batch normalization, just comment the following line
+x = tf.keras.layers.BatchNormalization()(x)
+x = tf.keras.layers.Dense(32, activation='relu')(x)
+predictions = tf.keras.layers.Dense(7, activation = 'softmax')(x)
 
-model = tf.keras.models.Sequential()
-model.add(pre_model)
-model.add(tf.keras.layers.Flatten())
-
-model.add(tf.keras.layers.Dense(64, activation='relu'))
-model.add(tf.keras.layers.Dropout(0.4))
-model.add(tf.keras.layers.Dense(32, activation='relu'))
-model.add(tf.keras.layers.Dense(7, activation='softmax'))
+#create graph of your new model
+model = Model(inputs = pre_model.input, outputs = predictions)
 model.summary()
+
+train_data_gen, val_data_gen = loadData(IMG_SHAPE)
 
 model.compile(optimizer=tf.optimizers.Adam(learning_rate=0.0001), loss='categorical_crossentropy', metrics=['categorical_accuracy'])
 
@@ -64,5 +71,3 @@ plt.plot(epochs_range, val_loss, label='Validation Loss')
 plt.legend(loc='upper right')
 plt.title('Training and Validation Loss')
 plt.show()
-
-pre_model.summary()
