@@ -10,8 +10,8 @@
 4) Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift https://arxiv.org/abs/1502.03167
 5) AI for good: Banknotes detection for blind people https://towardsdatascience.com/ai-for-good-banknotes-detection-for-blind-people-373efc81a482
 6) Real Time Object Detection using CNN https://pdfs.semanticscholar.org/7f91/3647f56a718d0bb62cc9e435e0fd599f57a7.pdf
-8) Cash Recognition for the Visually Impaired: Part 3: https://software.intel.com/en-us/articles/cash-recognition-for-the-visually-impaired-part-3
-9) How to Develop a Currency Detection Model using Azure Machine Learning: https://github.com/xiaoyongzhu/SeeingAI-Currency-Detection
-10) ImageNet pre-trained models with batch normalization: https://arxiv.org/abs/1612.01452
-
+7) Cash Recognition for the Visually Impaired: Part 3: https://software.intel.com/en-us/articles/cash-recognition-for-the-visually-impaired-part-3
+8) How to Develop a Currency Detection Model using Azure Machine Learning: https://github.com/xiaoyongzhu/SeeingAI-Currency-Detection
+9) ImageNet pre-trained models with batch normalization: https://arxiv.org/abs/1612.01452
+10) Object Recognition from Local Scale-Invariant Features: https://www.cs.ubc.ca/~lowe/papers/iccv99.pdf
 
