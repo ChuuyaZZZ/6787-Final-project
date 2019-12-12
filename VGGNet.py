@@ -16,25 +16,15 @@ batch_size = 100
 epochs = 100
 IMG_SHAPE = 224 
 
-
 pre_model = VGG16(include_top=False, weights='imagenet', input_tensor=None, input_shape = (224,224,3), pooling=None)
 
-# Setting the layers of pre-trained model to be non trainable for transfer learning
-for layer in pre_model.layers:
-    layer.trainable = False
-    
-# Setting all layers of the pre-trained model to be trainable
-# if want to test for non trainable, just comment the following two lines
-'''
-for layer in pre_model.layers:
-    layer.trainable = True
-'''
 x = tf.keras.layers.Flatten()(pre_model.output)
 x = tf.keras.layers.Dense(64, activation='relu')(x)
 x = tf.keras.layers.Dropout(0.4)(x)
 # if want to test without batch normalization, just comment the following line
 x = tf.keras.layers.BatchNormalization()(x)
 x = tf.keras.layers.Dense(32, activation='relu')(x)
+x = tf.keras.layers.BatchNormalization()(x)
 predictions = tf.keras.layers.Dense(7, activation = 'softmax')(x)
 
 #create graph of your new model

@@ -15,15 +15,7 @@ IMG_SHAPE = 224
 pre_model = tf.keras.applications.mobilenet_v2.MobileNetV2(input_shape = (224,224,3), alpha = 1.0, include_top = False, weights = 'imagenet')
 
 # Setting the layers of pre-trained model to be non trainable for transfer learning
-for layer in pre_model.layers:
-    layer.trainable = False
-    
-# Setting all layers of the pre-trained model to be trainable
-# if want to test for non trainable, just comment the following two lines
-'''
-for layer in pre_model.layers:
-    layer.trainable = True
-'''
+
 train_data_gen, val_data_gen = loadData(IMG_SHAPE)
 
 model = tf.keras.models.Sequential()
